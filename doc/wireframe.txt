@@ -1,0 +1,203 @@
+@startuml
+(*) --> "
+{{
+salt
+{+
+
+	{*
+	    ipm1920-p2
+	}
+	{SI
+        <&image> Image  | { <b>Nombre Rutina1 <&chevron-right>
+        Descripcion1... }
+        ==|==
+        <&image> Image  | { <b>Nombre Rutina2 <&chevron-right>
+        Descripcion2... }
+        ==|==
+        <&image> Image| { <b>Nombre Rutina3 <&chevron-right>
+        Descripcion3... }
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        <&image> Image | {<b>Nombre RutinaN <&chevron-right>
+        DescripcionN... }
+       }
+}
+}}
+" as main
+
+main -right-> "
+{{
+salt
+{+
+
+	|{*
+        Selected Workout
+	}
+	|{
+    .|.|.
+    .|.|.
+    .|.|.|.|.|.|<&image> Workout Image
+    .|.|.
+    .|.|.
+	}
+	|==
+    |{
+    .|.|.
+    .|.|.|.|.|Workout description...
+    .|.|.
+    }
+    |==
+	|{SI
+        { <&image> Image } | { <b> Ejercicio1 <&chevron-right>
+        Descripcion1... }
+        ==|==
+        { <&image> Image } | { <b> Ejercicio2 <&chevron-right>
+        Descripcion2... }
+        ==|==
+        { <&image> Image } | { <b> Ejercicio3 <&chevron-right>
+        Descripcion3... }
+
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        .. | ..
+        ==|==
+        { <&image> Image } | {<b> EjercicioN <&chevron-right>
+        DescripcionN... }
+        ==|==
+       }
+       |{[<&chevron-left>domine.workout List ]}
+}
+}}
+" as exercises
+
+exercises -down-> "
+{{
+salt
+{+
+    |{*
+        Selected Workout
+	}
+    |{T
+    +Exercise1
+    ++Video1
+    +Exercise2
+    ++Video2
+    +Exercise3
+    }
+    |{+
+
+            |{*
+                    Video 3
+                }
+                |{
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.|<&video> Exercise Video Player
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.
+                .|.|.|<&media-play>  <&media-pause>  <&media-stop>
+                }
+
+            }
+            {[Start]|[Stop]| "  N seg "}
+            {[Next]|[Prev]}
+    {T
+    +Exercise4
+    ++Video4
+    +Exercise5
+    ++Video5
+    }
+}
+}}
+" as training
+
+exercises -right-> "
+{{
+salt
+{+
+
+	|{*
+        Selected Exercise
+	}
+	|{
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.|<&video> Exercise Video Player
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.|<&media-play>  <&media-pause>  <&media-stop>
+	}
+	|==
+    |{
+    .|.|.
+    .|.|.
+    .|.|.
+    .|.|.|.|Exercise description...
+    .|.|.
+    .|.|.
+    }
+    |==
+    {
+    { <&chevron-right> } | { <b> Next domine.exercise } | { <&image> Image }
+    }
+    |==
+    {
+    { <&chevron-left> } | { <b> Prev domine.exercise } | { <&image> Image }
+    }
+    |==
+	|{[<&chevron-left>domine.workout ]}
+
+}
+}}
+" as domine.exercise
+
+
+domine.exercise -left-> exercises
+exercises -left-> main
+training -up-> exercises
+
+@enduml

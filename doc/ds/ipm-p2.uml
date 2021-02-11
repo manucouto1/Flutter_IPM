@@ -1,0 +1,176 @@
+@startuml
+
+class Workout {
+    +id: ObjectId
+    +name: String
+    +image: String
+    +description: String
+    +exercises: List<dynamix> domine.exercise
+    +toMap() : Map<String, dynamic>
+    +fromMap(Map<String, dynamic> map): Workout
+}
+
+class WorkoutDao {
+    -_workoutCollection:Future<DbCollection>
+    +findAll():Future<List<Workout>>
+}
+
+
+class WorkoutBloc {
+    -_workoutDao:WorkoutDao
+    +get initialState():WorkoutsLoading
+    +mapEventToState(WorkoutEvent event):Stream<WorkoutState>
+}
+
+
+class WorkoutEvent {
+    +get(): List<Objects>
+}
+class LoadWorkouts{}
+
+
+class WorkoutState {
+    +get(): List<Objects>
+}
+class WorkoutsFailure{}
+class WorkoutsLoading{}
+class WorkoutsLoaded{
+    +workouts: List<Workout>
+    +get(): List<Workout>
+}
+
+WorkoutState <|-- WorkoutsFailure
+WorkoutState <|-- WorkoutsLoading
+WorkoutState <|-- WorkoutsLoaded
+
+WorkoutEvent <|-- LoadWorkouts
+
+WorkoutBloc --> WorkoutState
+WorkoutBloc --> WorkoutEvent
+
+WorkoutDao --> Workout
+
+WorkoutBloc o--> WorkoutDao
+
+
+
+
+
+class Exercise {
+    +id: ObjectId
+    +name: String
+    +image: String
+    +description: String
+    +videoUrl: String
+    +toMap() : Map<String, dynamic>
+    +fromMap(Map<String, dynamic> map): Exercise
+}
+
+class ExerciseDao {
+    -_exerciseCollection:Future<DbCollection>
+    +findAll():Future<List<Workout>>
+}
+
+
+class ExerciseBloc {
+    -_exerciseDao:ExerciseDao
+    +get initialState():ExercisesLoading
+    +mapEventToState(ExerciseEvent event):Stream<ExerciseState>
+}
+
+
+class ExerciseEvent {
+    +get(): List<Objects>
+}
+class LoadExercises{}
+
+
+class ExerciseState {
+    +get(): List<Objects>
+}
+class ExercisesFailure{}
+class ExercisesLoading{}
+class ExercisesLoaded{
+    +exercises: List<Exercise>
+    +get(): List<Exercise>
+}
+
+ExerciseState <|-- ExercisesFailure
+ExerciseState <|-- ExercisesLoading
+ExerciseState <|-- ExercisesLoaded
+
+ExerciseEvent <|-- LoadExercises
+
+ExerciseBloc --> ExerciseState
+ExerciseBloc --> ExerciseEvent
+
+ExerciseDao --> Exercise
+
+ExerciseBloc o--> ExerciseDao
+
+
+class ExerciseDto {
+ +name: String
+ +image: String
+ +description: String
+ +videoUrl: String
+ +repetitions: String
+ +description: String
+
+}
+
+class WorkoutsPage {
+
+}
+
+class WorkoutsView{
+
+}
+
+
+class ExercisesPage {
+
+}
+
+class ExercisesView {
+
+}
+
+class ExercisesInfoPage {
+
+}
+
+class DetailsView {
+
+}
+
+class MyApp {
+
+}
+
+class TrainingPage {
+
+}
+
+
+
+WorkoutsPage --> WorkoutBloc
+WorkoutsPage --> WorkoutsView
+WorkoutsPage --> Workout
+WorkoutsPage --> ExerciseBloc
+WorkoutsPage --> ExercisesView
+
+ExercisesPage --> ExerciseBloc
+ExercisesPage --> ExercisesView
+ExercisesPage --> Exercise
+
+ExercisesInfoPage --> DetailsView
+ExercisesInfoPage --> ExerciseDto
+
+
+MyApp --> WorkoutsPage
+MyApp --> ExercisesPage
+MyApp --> ExercisesInfoPage
+MyApp -->  TrainingPage
+
+@enduml
